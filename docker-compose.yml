@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+
+  server:
+  
+    build: Server/
+
+    command: python3 ./run.py
+
+    ports:
+      - 47775:47775
+
+  client:
+
+    build: Client/
+
+    command: python3 ./run.py
+
+    environment: 
+      - DISPLAY=$DISPLAY
+
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+
+    network_mode: host
+
+    depends_on:
+      - server
